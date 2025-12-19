@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+enum IssueStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+model Organization {
+  id        String  @id @default(cuid())
+  name      String
+  users     User[]
+  issues    Issue[]
+  createdAt DateTime @default(now())
+}
+
+model User {
+  id             String   @id @default(cuid())
+  name           String
+  role           Role
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  assignedIssues  Issue[]
+}
+
+model Issue {
+  id             String      @id @default(cuid())
+  title          String
+  description    String?
+  status         IssueStatus @default(OPEN)
+  assigneeId     String?
+  assignee       User?       @relation(fields: [assigneeId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+  activities     ActivityLog[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model ActivityLog {
+  id             String   @id @default(cuid())
+  issue          Issue    @relation(fields: [issueId], references: [id])
+  issueId        String
+  organizationId String
+  type           String
+  before         String?
+  after          String?
+  userId         String
+  createdAt      DateTime @default(now())
+}

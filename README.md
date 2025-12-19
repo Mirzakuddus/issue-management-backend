@@ -1,10 +1,10 @@
-# Issue Management — Multi-tenant API (NestJS) ✅
+# Issue Management — Multi-tenant API (NestJS)
 
 A small, focused NestJS backend implementing a **multi-tenant** Issue Management API for an internal tool. It intentionally omits authentication (mocked user context is used) so the exercise concentrates on **tenant isolation**, **role-based authorization**, and **audit logging**.
 
 ---
 
-## 🚀 Quick start
+## Quick start
 
 1. Copy environment example:
 
@@ -35,7 +35,7 @@ The server listens on port 3000 by default (use `PORT` env to change).
 
 ---
 
-## 🔧 How to use (quick examples)
+##  How to use (quick examples)
 
 All requests must include headers to mock the current user context:
 
@@ -73,7 +73,7 @@ Available endpoints:
 
 ---
 
-## 🧭 Architecture & Decisions (short answers)
+##  Architecture & Decisions (short answers)
 
 1) **How did you implement multi-tenancy in NestJS?**
 
@@ -112,13 +112,6 @@ Auth (JWT/OAuth), background jobs, full testing suite, observability (metrics/tr
 - The implementation uses Prisma v7 and a driver adapter for SQLite (dev only). For production use choose Postgres and a robust adapter/driver.
 - Always pass `x-organization-id` header to simulate requests from different tenants during testing.
 
----
-
-If you want, I can: add more example requests to the README, add a small Postman collection, or implement extra safety checks (e.g., ensure `assigneeId` belongs to the same organization).
-
-Happy to iterate — tell me what you'd like next! ✨
-
----
 
 License: MIT
 
